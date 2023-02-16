@@ -9,6 +9,7 @@ from .models import Appointment
 from .models import Post
 from datetime import timedelta, datetime
 from django.contrib import messages
+
 # Create your views here.
 def home(request):
     if request.user.is_authenticated:
@@ -26,7 +27,6 @@ def home(request):
     consultant= Consultant.objects.all()[0:3]
     context = {'post':post, 'consultant':consultant}
     return render(request, 'index.html', context)
-
 
 def blog(request):
     return render(request, 'blog.html')
