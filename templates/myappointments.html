@@ -64,7 +64,7 @@
                                             <td>{{x.age}}</td>
                                             <td>{{x.date}}</td>
                                             <td>{% if x.approved %}<button class="btn btn-success btn-sm disabled" type="button" style="margin-left: 19px;" disabled="">Approved</button>{% else %}<button class="btn btn-danger btn-sm disabled" type="button" style="margin-left: 19px;" disabled="">Not Approved</button>{% endif %}</td>
-                                            <td>{{x.meet_link}}</td>
+                                            <td><a href ="https://{{x.meet_link}}">Join</td>
                                             <td class="text-center" style="text-align: center;">
                                                 {% if x.is_conducted %}
                                                 <i class="icon ion-android-done-all" style="color: var(--bs-red);font-family: Montserrat, sans-serif;font-size: 20px;text-align: center;"></i>
