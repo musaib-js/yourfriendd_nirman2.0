@@ -8,7 +8,7 @@ class Post(models.Model):
     title  = models.CharField(max_length = 300)
     author = models.CharField(max_length = 300)
     body = models.TextField()
-    timeStamp = models.DateTimeField()
+    timeStamp = models.DateTimeField(auto_now = True)
     slug = models.CharField(max_length = 350)
     tags = models.TextField()
 

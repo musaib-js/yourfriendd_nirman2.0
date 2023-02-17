@@ -1,10 +1,8 @@
 <!DOCTYPE html>
-<html>
-
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
-    <title>Table - Brand</title>
+    <title>Doctor Dashboard</title>
     <link rel="stylesheet" href="/static/bootstrap/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i&amp;display=swap">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Montserrat:100,100i,200,200i,300,300i,400,400i,500,500i,600,600i,700,700i,800,800i,900,900i&amp;display=swap">
@@ -25,6 +23,12 @@
                         </div>
                     </div>
                 </nav>
+                {% for x in messages %}
+  <div class="alert alert-info alert-dismissible fade show" role="alert">
+    <strong>Hey Friend!</strong> {{x}}
+    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+  </div>
+  {% endfor %}
                 <section>
                     <div class="container" style="margin-bottom: 14px;margin-top: 14px;">
                         <div class="row">
@@ -36,9 +40,26 @@
                                                 <h4 class="modal-title">Post a Blog</h4><button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                             </div>
                                             <div class="modal-body">
-                                                <p>The content of your modal.</p>
+                                                <form action="/auth/postBlog/" method="POST" class="php-email-form" data-aos="fade-up" data-aos-delay="100">
+                                                    {% csrf_token %}
+                                                    <div class="row">
+                                                      <div class="col-md-6 form-group">
+                                                        <input type="text" name="title" class="form-control" id="name" placeholder="Title" required>
+                                                      </div>
+                                                      <div class="col-md-6 form-group">
+                                                        <textarea type="text" name="body" class="form-control" id="name" placeholder="Enter the content" required></textarea>
+                                                      </div>
+                                                      <div class="col-md-6 form-group mt-3 mt-md-0">
+                                                        <input type="text" class="form-control" name="slug" id="email" placeholder="Slug" required>
+                                                      </div>
+                                                      <div class="col-md-6 form-group mt-3 mt-md-0">
+                                                        <input type="text" class="form-control" name="tags" id="email" placeholder="Tags" required>
+                                                      </div>
+                                                    </div>
+                                                    <div class="text-center"><button class = "btn btn-success my-4" type="submit">Post</button></div>
+                                                  </form>
                                             </div>
-                                            <div class="modal-footer"><button class="btn btn-light" type="button" data-bs-dismiss="modal">Close</button><button class="btn btn-primary" type="button">Save</button></div>
+                                            <div class="modal-footer"><button class="btn btn-light" type="button" data-bs-dismiss="modal">Close</button><button class="btn btn-success" type="button">Save</button></div>
                                         </div>
                                     </div>
                                 </div>
@@ -133,8 +154,8 @@
                                             <td><img class="rounded-circle me-2" width="30" height="30" src="/static/img/avatars/avatar1.jpeg">{{x.name}}</td>
                                             <td>{{x.age}}</td>
                                             <td>{{x.date}}</td>
-                                            <td>{% if x.is_approved %}<button class="btn btn-success btn-sm disabled" type="button" style="margin-left: 19px;" disabled="">Approved</button>{% else %}<button class="btn btn-danger btn-sm disabled" type="button" style="margin-left: 19px;" disabled="">Not Approved</button>{% endif %}</td>
-                                            <td>{{x.meet_link}}</td>
+                                            <td>{% if x.approved %}<button class="btn btn-success btn-sm disabled" type="button" style="margin-left: 19px;" disabled="">Approved</button>{% else %}<button class="btn btn-danger btn-sm" type="button" style="margin-left: 19px;" >Not Approved</button>{% endif %}</td>
+                                            <td><form action = "/auth/appointment-approved/{{x.pk}}" method = "POST"> {% csrf_token %}<input type=  "text" name = "meet_link" value = "{{x.meet_link}}"></input><button class = "btn btn-success btn-sm" type = "submit">&hearts;</button></form></td>
                                             <td class="text-center" style="text-align: center;">
                                                 {% if x.is_conducted %}
                                                 <i class="icon ion-android-done-all" style="color: var(--bs-red);font-family: Montserrat, sans-serif;font-size: 20px;text-align: center;"></i>

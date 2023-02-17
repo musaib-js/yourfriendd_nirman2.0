@@ -9,7 +9,7 @@ from django.contrib.auth import login as auth_login
 from django.contrib.auth import logout as auth_logout
 from django.contrib.auth.decorators import login_required
 from home.forms import AppointmentForm
-from home.models import Appointment,SelfCare
+from home.models import Appointment,SelfCare, Post
 
 # Handles the Patient Signup
 def handleSignup(request):
@@ -112,7 +112,6 @@ def doctordashboard(request):
     if request.user.is_authenticated:
         if request.user.is_consultant:
             consultant = Consultant.objects.filter(user = request.user).first()
-            print(consultant)
             appointment = Appointment.objects.filter(doctor = consultant.user)
             context = {'consultant':consultant, 'appointment':appointment}
             return render(request, 'doctordashboard.html', context)
@@ -185,3 +184,27 @@ def selfCare(request):
         selfcare_techniques = SelfCare.objects.all()
         context={'techniques':selfcare_techniques}
         return render(request,'selfcare.html',context)
+
+def AppointmentApproved(request,pk):
+    if request.method == "POST":
+        meet_link = request.POST['meet_link']
+        appointment = Appointment.objects.get(pk = pk)
+        appointment.approved = True
+        appointment.meet_link = meet_link
+        appointment.save()
+        messages.success(request,"Successfully Approved")
+        return redirect('/auth/doctordashboard')
+
+
+def postBlog(request):
+    if request.method == "POST":
+        title = request.POST['title']
+        body = request.POST['body']
+        slug = request.POST['slug']
+        tags = request.POST['tags']
+
+        newPost = Post(title = title, body = body, slug =slug, tags = tags, author = request.user)
+        newPost.save()
+        messages.success(request, "Posted Successfully")
+        return redirect('/auth/doctordashboard')
+

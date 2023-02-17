@@ -51,3 +51,4 @@ def contact(request):
         return redirect('/')
     elif request.method =='GET':
         return render(request,'contact.html')
+

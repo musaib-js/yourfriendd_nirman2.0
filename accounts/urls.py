@@ -20,5 +20,7 @@ urlpatterns = [
     path('meditation/', views.meditation, name='meditation'),
     path('coping/', views.coping, name='coping'),
     path('myappointments/', views.myappointments, name='myappointments'),
+    path('appointment-approved/<int:pk>', views.AppointmentApproved, name='appointment-approved'),
     path('selfcare/',views.selfCare,name="selfcare"),
+    path('postBlog/', views.postBlog, name = "postBlog"),
 ]
