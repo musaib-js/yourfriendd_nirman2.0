@@ -72,7 +72,10 @@ def subscribe(request, pk):
     pack = Subscription_Packs.objects.get(pk=pk)
     newsubscribeduser = Subscribed_Users(user = user, subscription_type = pack)
     print(newsubscribeduser)
-    newsubscribeduser.save()
+    try:
+        newsubscribeduser.save()
+    except Exception as e:
+        print(e)
     messages.success(request, "You've succesfully subscribed")
     return redirect('/')
 

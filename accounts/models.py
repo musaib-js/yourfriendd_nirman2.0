@@ -50,7 +50,7 @@ class Subscription_Packs(models.Model):
 
 class Subscribed_Users(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
-    subscription_type = models.OneToOneField(Subscription_Packs, on_delete=models.CASCADE, default=None)
+    subscription_type = models.ForeignKey(Subscription_Packs, on_delete=models.CASCADE, default=None)
     created_at = models.DateField(auto_now=True)
 
     class Meta:

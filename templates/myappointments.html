@@ -49,7 +49,6 @@
                                     <thead>
                                         <tr>
                                             <th style="font-family: Montserrat, sans-serif;">Name</th>
-                                            <th style="font-family: Montserrat, sans-serif;">Age</th>
                                             <th style="font-family: Montserrat, sans-serif;">Date Of Appointment</th>
                                             <th style="font-family: Montserrat, sans-serif;">Status</th>
                                             <th style="font-family: Montserrat, sans-serif;">Meet Link</th>
@@ -61,7 +60,6 @@
                                           {% for x in appointment %}
                                         <tr>
                                             <td><img class="rounded-circle me-2" width="30" height="30" src="/static/img/avatars/avatar1.jpeg">{{x.doctor}}</td>
-                                            <td>{{x.age}}</td>
                                             <td>{{x.date}}</td>
                                             <td>{% if x.approved %}<button class="btn btn-success btn-sm disabled" type="button" style="margin-left: 19px;" disabled="">Approved</button>{% else %}<button class="btn btn-danger btn-sm disabled" type="button" style="margin-left: 19px;" disabled="">Not Approved</button>{% endif %}</td>
                                             <td><a href ="https://{{x.meet_link}}">Join</td>
@@ -106,7 +104,7 @@
             </div>
             <footer class="bg-white sticky-footer">
                 <div class="container my-auto">
-                    <div class="text-center my-auto copyright"><span>Copyright © Brand 2023</span></div>
+                    <div class="text-center my-auto copyright"><span>Copyright © Your Friend 2023</span></div>
                 </div>
             </footer>
         </div><a class="border rounded d-inline scroll-to-top" href="#page-top"><i class="fas fa-angle-up"></i></a>
