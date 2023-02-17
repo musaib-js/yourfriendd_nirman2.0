@@ -100,9 +100,9 @@ AUTH_PASSWORD_VALIDATORS = [
 
 AUTH_USER_MODEL = 'accounts.User'
 
-LOGIN_URL = 'login'
+LOGIN_URL = '/auth/login'
 
-LOGOUT_URL = 'logout'
+LOGOUT_URL = '/auth/logout'
 
 LOGIN_REDIRECT_URL = 'home'
 

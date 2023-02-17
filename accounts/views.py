@@ -160,6 +160,7 @@ def meditation(request):
 def coping(request):
     return render(request, 'coping.html')
 
+@login_required
 def selectsubscription(request):
     subscription = Subscription_Packs.objects.all()
     context = {'subscription': subscription}
