@@ -30,6 +30,7 @@ class Consultant(models.Model):
     email = models.EmailField(max_length = 200)
     photo = models.ImageField(upload_to = 'media', default = 'one.jpg')
     bio = models.TextField()
+    phone = models.IntegerField(default = 00000000000)
 
     def __str__(self):
         return self.name
