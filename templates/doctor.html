@@ -10,10 +10,11 @@
                 <img src="/media/{{doctor.photo}}"
                   alt="Generic placeholder image" class="img-fluid img-thumbnail mt-4 mb-2"
                   style="width: 150px; z-index: 1">
-                <button type="button" class="btn btn-outline-dark" data-mdb-ripple-color="dark"
-                  style="z-index: 1; max-width: 250px ">
+                <a href="/auth/bookappointment/{{doctor.pk}}",type="button" class="btn btn-outline-dark" data-mdb-ripple-color="dark"
+                  style="z-index: 1; margin-top: 25px;
+                  width: 190px;">
                   Book an Appointment
-                </button>
+                </a>
               </div>
               <div class="ms-3" style="margin-top: 130px;">
                 <h5>{{doctor.name}}</h5>

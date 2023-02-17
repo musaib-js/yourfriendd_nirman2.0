@@ -25,80 +25,10 @@
                         </div>
                     </div>
                 </nav>
-                <section>
-                    <div class="container" style="margin-bottom: 14px;margin-top: 14px;">
-                        <div class="row">
-                            <div class="col-md-6 text-center"><a class="btn btn-primary" role="button" style="width: 220px;background: #007f96;" href="#modal-1" data-bs-target="#modal-1" data-bs-toggle="modal">Post a Blog</a>
-                                <div class="modal fade" role="dialog" tabindex="-1" id="modal-1">
-                                    <div class="modal-dialog modal-xl modal-dialog-centered modal-dialog-scrollable" role="document">
-                                        <div class="modal-content">
-                                            <div class="modal-header">
-                                                <h4 class="modal-title">Post a Blog</h4><button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                                            </div>
-                                            <div class="modal-body">
-                                                <p>The content of your modal.</p>
-                                            </div>
-                                            <div class="modal-footer"><button class="btn btn-light" type="button" data-bs-dismiss="modal">Close</button><button class="btn btn-primary" type="button">Save</button></div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-md-6 text-center"><button class="btn btn-primary" type="button" style="width: 220px;background: #007f96;" data-bs-target="#modal-2" data-bs-toggle="modal">Post a self Care technique</button>
-                                <div class="modal fade" role="dialog" tabindex="-1" id="modal-2">
-                                    <div class="modal-dialog modal-lg modal-dialog-centered modal-dialog-scrollable" role="document">
-                                        <div class="modal-content">
-                                            <div class="modal-header">
-                                                <h4 class="modal-title">Post a self care technique</h4><button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                                            </div>
-                                            <div class="modal-body">
-                                                <p>The content of your modal.</p>
-                                            </div>
-                                            <div class="modal-footer"><button class="btn btn-light" type="button" data-bs-dismiss="modal">Close</button><button class="btn btn-primary" type="button">Save</button></div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="container" style="margin-bottom: 14px;">
-                        <div class="row">
-                            <div class="col-md-6 text-center"><button class="btn btn-primary" type="button" style="width: 221px;background: #007f96;" data-bs-target="#modal-3" data-bs-toggle="modal">Post a Podcast</button>
-                                <div class="modal fade" role="dialog" tabindex="-1" id="modal-3">
-                                    <div class="modal-dialog modal-lg modal-dialog-centered modal-dialog-scrollable" role="document">
-                                        <div class="modal-content">
-                                            <div class="modal-header">
-                                                <h4 class="modal-title">Post a self Podcast</h4><button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                                            </div>
-                                            <div class="modal-body">
-                                                <p>The content of your modal.</p>
-                                            </div>
-                                            <div class="modal-footer"><button class="btn btn-light" type="button" data-bs-dismiss="modal">Close</button><button class="btn btn-primary" type="button">Save</button></div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-md-6 text-center"><button class="btn btn-primary" type="button" style="width: 220.7375px;background: #007f96;" data-bs-target="#modal-4" data-bs-toggle="modal">Edit Profile</button>
-                                <div class="modal fade" role="dialog" tabindex="-1" id="modal-4">
-                                    <div class="modal-dialog modal-lg modal-dialog-centered modal-dialog-scrollable" role="document">
-                                        <div class="modal-content">
-                                            <div class="modal-header">
-                                                <h4 class="modal-title">Edit Profile</h4><button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                                            </div>
-                                            <div class="modal-body">
-                                                <p>The content of your modal.</p>
-                                            </div>
-                                            <div class="modal-footer"><button class="btn btn-light" type="button" data-bs-dismiss="modal">Close</button><button class="btn btn-primary" type="button">Save</button></div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </section>
                 <div class="container-fluid" id="patient-info">
                     <div class="card shadow">
                         <div class="card-header py-3">
-                            <p class="text-primary m-0 fw-bold" style="font-family: Montserrat, sans-serif;">Patient Info</p>
+                            <p class="text-primary m-0 fw-bold" style="font-family: Montserrat, sans-serif;">{{request.user}}</p>
                         </div>
                         <div class="card-body">
                             <div class="row">

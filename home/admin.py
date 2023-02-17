@@ -1,4 +1,4 @@
 from django.contrib import admin
-from . models import Post, Appointment,SelfCare
+from . models import Post, Appointment,SelfCare,Contact
 # Register your models here.
-admin.site.register((Post, Appointment,SelfCare))
+admin.site.register((Post, Appointment,SelfCare,Contact))

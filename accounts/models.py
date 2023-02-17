@@ -36,7 +36,7 @@ class Consultant(models.Model):
 
 class Subscription_Packs(models.Model):
     id = models.AutoField(primary_key=True)
-    name = models.CharField(max_length = 200)
+    name = models.CharField(max_length = 200,unique=True)
     period = models.PositiveIntegerField()
     amount = models.PositiveIntegerField()
     benefits = models.TextField()
@@ -51,7 +51,7 @@ class Subscription_Packs(models.Model):
 class Subscribed_Users(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     subscription_type = models.OneToOneField(Subscription_Packs, on_delete=models.CASCADE, default=None)
-    created_at = models.DateField(auto_now_add=True)
+    created_at = models.DateField(auto_now=True)
 
     class Meta:
         verbose_name_plural = "Subscribed Users"

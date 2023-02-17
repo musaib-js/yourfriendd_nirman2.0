@@ -50,13 +50,18 @@
       </ul>
       <i class="bi bi-list mobile-nav-toggle"></i>
     </nav><!-- .navbar -->
-    {% if request.user.is_authenticated%} 
-    <a href="#appointment" class="appointment-btn scrollto"><span class="d-none d-md-inline">Make an</span> Appointment</a>
-    {% endif %}
-
-    
-
+    {% if request.user.is_authenticated and request.user.is_consultant%} 
+    <a href="/auth/doctordashboard" class="appointment-btn scrollto"><span class="d-none d-md-inline">Dashboard</a>
+       {% elif request.user.is_authenticated and request.user.is_patient %}
+       <a href="/auth/myappointments" class="appointment-btn scrollto"><span class="d-none d-md-inline">Profile</a>
+    {% endif %}   
   </div>
+  {% for x in messages %}
+  <div class="alert alert-info alert-dismissible fade show" role="alert">
+    <strong>Hey Friend!</strong> {{x}}
+    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+  </div>
+  {% endfor %}
 </header><!-- End Header -->
 
 {% block body %} {% endblock %}

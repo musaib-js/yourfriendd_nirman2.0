@@ -1,8 +1,5 @@
 from django.contrib.auth import login
 from django.shortcuts import redirect, render
-from django.views.generic import CreateView
-from django.views.generic import TemplateView
-from .decorators import patient_required, consultant_required
 from .forms import PatientSignUpForm, ConsultantSignUpForm, PatientForm, ConsultantForm
 from .models import Patient, Subscription_Packs, User ,Subscribed_Users, Consultant
 from django.contrib import messages
@@ -60,7 +57,7 @@ def login(request):
                 return redirect('/auth/doctordashboard')
         else:
             messages.error(request, "Invalid Credentials")
-            return redirect('/')
+            return redirect('/auth/login')
     return render(request, 'login.html')
 
 #Handles the logout
@@ -70,9 +67,9 @@ def logout(request):
     return redirect('home')
 
 #Subscription
-def subscribe(request, name):
+def subscribe(request, pk):
     user  = request.user
-    pack = Subscription_Packs.objects.get(name = name)
+    pack = Subscription_Packs.objects.get(pk=pk)
     newsubscribeduser = Subscribed_Users(user = user, subscription_type = pack)
     print(newsubscribeduser)
     newsubscribeduser.save()
@@ -115,7 +112,8 @@ def doctordashboard(request):
     if request.user.is_authenticated:
         if request.user.is_consultant:
             consultant = Consultant.objects.filter(user = request.user).first()
-            appointment = Appointment.objects.filter(doctor = consultant)
+            print(consultant)
+            appointment = Appointment.objects.filter(doctor = consultant.user)
             context = {'consultant':consultant, 'appointment':appointment}
             return render(request, 'doctordashboard.html', context)
         return redirect('/')
@@ -126,22 +124,23 @@ def bookappointment(request, pk):
     doctor = Consultant.objects.get(pk = pk)
     try:
         sub_user = Subscribed_Users.objects.get(user = user)
+        context = {'doctor':doctor}
         if sub_user:
             if request.method == "POST":
                 name = request.POST['name']
                 age = request.POST['age']
-                date = request.POST['date'].isoformat()
-                newAppointment = Appointment(patient = request.user, doctor = doctor, name = name, age = age, date = date, meet_link = "Not Approved")
+                date = request.POST['date']
+                newAppointment = Appointment(patient = user, doctor = doctor.user, name = name, age = age, date = date, meet_link = "Not Approved")
+                print(newAppointment)
                 newAppointment.save()
                 messages.success(request, "Appointment booked succesfully. Wait for the doctor to approve.")
                 return redirect('/')
             else:
-                 messages.error(request, "Fill the form correctly")
-                 context = {'doctor':doctor}
-            return render(request, 'bookappointment.html', context) 
-    except:
-        print("not subscribed")
-        return redirect('/')
+                return render(request, 'appointment.html', context) 
+    except Exception as e:
+        print(e)
+        messages.success(request, "Please subscribe to any of our packs")
+        return redirect('/auth/selectsubscription/')
 
 #View to fetch the doctors
 def doctors(request):
@@ -167,54 +166,18 @@ def selectsubscription(request):
     context = {'subscription': subscription}
     return render(request, 'subscriptions.html', context)
 
+@login_required
 def myappointments(request):
-    user = request.user
-    print(user)
-    patient = Patient.objects.filter(user = user).first()
-    print(patient)
-    name = patient.name
-    userappointments = Appointment.objects.filter(name = name)
-    context = {'userapp': userappointments}
+    userappointments = Appointment.objects.filter(patient = request.user)
+    context = {'appointment': userappointments}
     return render(request, 'myappointments.html', context)
 
-
-# class ConsultantSignUpView(CreateView):
-#     model = User
-#     form_class = ConsultantSignUpForm
-#     template_name = 'doctorsignup.html'
-
-#     def get_context_data(self, **kwargs):
-#         kwargs['user_type'] = 'consultant'
-#         return super().get_context_data(**kwargs)
-
-#     def form_valid(self, form):
-#         user = form.save()
-#         auth_login(self.request, user)
-#         return redirect('/auth/consultantprofile')
-
-# class SignUpView(TemplateView):
-#     template_name = 'signup.html'
-
-# class PatientSignUpView(CreateView):
-    model = User
-    form_class = PatientSignUpForm
-    template_name = 'patientsignup.html'
-
-    def get_context_data(self, **kwargs):
-        kwargs['user_type'] = 'patient'
-        return super().get_context_data(**kwargs)
-
-    def form_valid(self, form):
-        user = form.save()
-        auth_login(self.request, user)
-        return redirect('/auth/patientprofile')
 @login_required
 def selfCare(request):
     if request.method == 'POST':
         name=request.POST['name']
         files=request.FILES['file']
         description=request.POST['description']
-
         selfcare = SelfCare(name=name,posted_by=request.user,file=files,description=description)
         selfcare.save()
         return redirect('/selfcare/')
