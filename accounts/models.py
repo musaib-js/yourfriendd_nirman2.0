@@ -14,6 +14,12 @@ class Patient(models.Model):
     name = models.CharField(max_length = 350, default = "patient")
     age = models.IntegerField(default = 00)
     gender = models.CharField(max_length=6, default = "not-specfied")
+    marital_status = models.CharField(max_length=6, default = "not-specfied")
+    country = models.CharField(max_length=6, default = "not-specfied")
+    state = models.CharField(max_length=50, default = "not-specfied")
+    employment_status = models.CharField(max_length=50, default = "not-specfied")
+    job_type = models.CharField(max_length=50, default = "not-specfied")
+    employment_type = models.CharField(max_length=50, default = "not-specfied")
     history = models.CharField(max_length = 500, default = "None")
 
     def __str__(self):
