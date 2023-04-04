@@ -36,8 +36,14 @@ def createProfile(request):
         name = request.POST['name']
         gender = request.POST['gender']
         age = request.POST['age']
+        marital_status = request.POST['maritalstatus']
+        country = request.POST['country']
+        state = request.POST['state']
+        employment_status = request.POST['employmentstatus']
+        job_type = request.POST['jobtype']
+        employment_type = request.POST['employmenttype']
         history = request.POST['history']
-        newProfile = Patient.objects.create(user = request.user, name = name, gender = gender, age =  age, history = history)
+        newProfile = Patient.objects.create(user = request.user, name = name, gender = gender, age =  age, marital_status = marital_status, country  =country, state = state, employment_status = employment_status, job_type = job_type, employment_type = employment_type, history = history)
         newProfile.save()
         messages.success(request, "Your Profile Has Been Created Successfully")
         return redirect('/auth/selectsubscription')
