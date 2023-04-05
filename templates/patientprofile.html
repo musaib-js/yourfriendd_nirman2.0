@@ -32,10 +32,14 @@
             </select>
           </div>
           <div class="col-md-4 form-group mt-3 mt-md-0">
-            <input type="integer" class="form-control" name="country" id="country" placeholder="Country" required>
+            <select id="country" class="form-select">
+              <option>Select country</option>
+          </select>
           </div>
           <div class="col-md-4 form-group mt-3 mt-md-0">
-            <input type="text" class="form-control" name="state" id="state" placeholder="State" required>
+            <select id="state" class="form-select">
+              <option>_</option>
+            </select>
           </div>
           <div class="col-md-4 form-group mt-3 mt-md-0">
             <select class="form-select" name="employmentstatus" id="empstatus" required>
@@ -74,4 +78,58 @@
 
     </div>
   </section><!-- End Appointment Section -->
+<script src="/static/js/country-states.js"></script>
+<script>
+  // user country code for selected option
+  var user_country_code = "IN";
+  
+  (() => {
+  
+      // Get the country name and state name from the imported script.
+      const country_array = country_and_states.country;
+      const states_array = country_and_states.states;
+  
+      const id_state_option = document.getElementById("state");
+      const id_country_option = document.getElementById("country");
+  
+      const createCountryNamesDropdown = () => {
+          let option =  '';
+          option += '<option value="">Select Country</option>';
+  
+          for(let country_code in country_array){
+              // set selected option user country
+              let selected = (country_code == user_country_code) ? ' selected' : '';
+              option += '<option value="'+country_code+'"'+selected+'>'+country_array[country_code]+'</option>';
+          }
+          id_country_option.innerHTML = option;
+      };
+  
+      const createStatesNamesDropdown = () => {
+          let selected_country_code = id_country_option.value;
+          // get state names
+          let state_names = states_array[selected_country_code];
+  
+          // if invalid country code
+          if(!state_names){
+              id_state_option.innerHTML = '<option>Select State</option>';
+              return;
+          }
+          let option = '';
+          option += '<select id="state">';
+          option += '<option>Select state</option>';
+          for (let i = 0; i < state_names.length; i++) {
+              option += '<option value="'+state_names[i].code+'">'+state_names[i].name+'</option>';
+          }
+          option += '</select>';
+          id_state_option.innerHTML = option;
+      };
+  
+      // country select change event
+      id_country_option.addEventListener('change', createStatesNamesDropdown);
+  
+      createCountryNamesDropdown();
+      createStatesNamesDropdown();
+  })();
+  
+  </script>
 {% endblock body %}
